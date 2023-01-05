@@ -19,3 +19,5 @@
 * Pre-commit tests, CI and all that jazz would be lovely.
 * Yes, I'm now really convinced we've got a problem with rounding.
 * We will ultimately need a way to load the mapping of discounts to items (and change said mapping). However, that's not very exciting, so let's just hard code it for now.
+* I'd like to commonise some of the test fixtures and create some helper functions. We're just at the point where the copying is getting excessive.
+* Does the optional actually help? Here, absolutely not. I have a suspicion that it will be useful for composing, though, so let's keep it in.
