@@ -47,6 +47,22 @@ class ThreeForThePriceOfTwoTest {
         assertEquals(aPintOfMilk().price(), totalDiscount);
     }
 
+    @Test
+    void considerEachTripleSeparately() {
+        final var discount = new ThreeForThePriceOfTwo();
+        final var items = Stream.of(
+            aPackOfDigestives(), aPackOfDigestives(), aPackOfDigestives(),
+            aPintOfMilk(), aPintOfMilk(), aPintOfMilk()
+        );
+
+        final var totalDiscount= items.map(item -> discount.calculateDiscount(item).orElse(BigDecimal.ZERO))
+            .reduce(BigDecimal::add)
+            .orElse(BigDecimal.ZERO)
+            .setScale(2, RoundingMode.HALF_UP);
+
+        assertEquals(aPackOfDigestives().price().add(aPintOfMilk().price()), totalDiscount);
+    }
+
     private Item aPackOfDigestives() {
         return new Product(new BigDecimal("1.55")).oneOf();
     }
