@@ -21,3 +21,12 @@
 * We will ultimately need a way to load the mapping of discounts to items (and change said mapping). However, that's not very exciting, so let's just hard code it for now.
 * I'd like to commonise some of the test fixtures and create some helper functions. We're just at the point where the copying is getting excessive.
 * Does the optional actually help? Here, absolutely not. I have a suspicion that it will be useful for composing, though, so let's keep it in.
+
+## Post-mortem notes
+* I like the approach of making discounts stateful. It means that they're all isolated, and we don't need some hideous shared state tracking that handles all the state needed by all possible discounts.
+* Also, it should be easy to extend the discounts I've created to cover the cases for arbitrary numbers.
+* We want to change the discount to operate on the entire list. This is necessary for some discounts that might involve applying discounts to early members of the basket due to the presence of later items (e.g. "buy one kilo of vegetables for half price").
+* The hard problem is composition. We either need to add logic to the discount selector to make it impossible to configure multiple discounts for one item, or solve it properly. This will depend heavily on the business needs.
+* On a related note, using a list of discounts in the discount selector was a naive way of 'solving' composition, but probably introduces more problems than it solves. I think the right way instead would be to have discounts be a `Map<ProductId, Discount>` (or maybe a `Map<ProductId, List<Discount>>` fort composition).
+* Also, we probably want to change how discounts are handled in the basket. Currently, the price and discount are handled separately. This is likely to complicate tax calculations. Instead of returning the discount, I think we want to return an object containing both the original price and the post-discount price. We could then apply taxes, and do all the summation at the end. This would also have the nice side-effect of making it much easier to check for discounts causing negative prices or price increases.
+* Finally, not sure how performant this would be. At a guess, a large supermarket might have 10 000 - 100 000 different products, a substantial fraction of which might have discounts. If this is running on a point of sale terminal, we have very limited computing resources. We probably want to do some early performance testing to check that this approach is reasonable.
