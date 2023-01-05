@@ -8,9 +8,11 @@ import java.util.List;
 
 public class Basket {
     private final List<Item> items;
+    private final Discounter discounter;
 
-    public Basket() {
+    public Basket(Discounter discounter) {
         this.items = new ArrayList<>();
+        this.discounter = discounter;
     }
 
     public void add(final Item item) {
@@ -22,16 +24,16 @@ public class Basket {
     }
 
     public BigDecimal total() {
-        return new TotalCalculator().calculate();
+        return new TotalCalculator(discounter).calculate();
     }
 
     private class TotalCalculator {
         private final List<Item> items;
         private Discounter discounter;
 
-        TotalCalculator() {
+        TotalCalculator(Discounter discounter) {
             this.items = items();
-            this.discounter = new Discounter();
+            this.discounter = discounter;
         }
 
         private BigDecimal subtotal() {

@@ -18,3 +18,4 @@
 * Let's assume we can calculate discounts on individual items as they come in. Later, we may want to refactor the basket to group sets of identical items.
 * Pre-commit tests, CI and all that jazz would be lovely.
 * Yes, I'm now really convinced we've got a problem with rounding.
+* We will ultimately need a way to load the mapping of discounts to items (and change said mapping). However, that's not very exciting, so let's just hard code it for now.
