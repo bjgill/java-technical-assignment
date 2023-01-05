@@ -31,10 +31,31 @@ class ThreeForThePriceOfTwoTest {
             .orElse(BigDecimal.ZERO)
             .setScale(2, RoundingMode.HALF_UP);
 
-        assertEquals(new BigDecimal("1.55"), totalDiscount);
+        assertEquals(aPackOfDigestives().price(), totalDiscount);
+    }
+
+    @Test
+    void discountCheapestItem() {
+        final var discount = new ThreeForThePriceOfTwo();
+        final var items = Stream.of(aPackOfDigestives(), aPintOfMilk(), aLoafOfBread());
+
+        final var totalDiscount= items.map(item -> discount.calculateDiscount(item).orElse(BigDecimal.ZERO))
+            .reduce(BigDecimal::add)
+            .orElse(BigDecimal.ZERO)
+            .setScale(2, RoundingMode.HALF_UP);
+
+        assertEquals(aPintOfMilk().price(), totalDiscount);
     }
 
     private Item aPackOfDigestives() {
         return new Product(new BigDecimal("1.55")).oneOf();
+    }
+
+    private Item aPintOfMilk() {
+        return new Product(new BigDecimal("0.49")).oneOf();
+    }
+
+    private Item aLoafOfBread() {
+        return new Product(new BigDecimal("1.49")).oneOf();
     }
 }
