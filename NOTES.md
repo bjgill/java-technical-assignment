@@ -17,3 +17,4 @@
 * The discounter is going to need to be stateful - items can't hold the state since discounts cross multiple items.
 * Let's assume we can calculate discounts on individual items as they come in. Later, we may want to refactor the basket to group sets of identical items.
 * Pre-commit tests, CI and all that jazz would be lovely.
+* Yes, I'm now really convinced we've got a problem with rounding.
