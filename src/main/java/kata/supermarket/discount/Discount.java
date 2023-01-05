@@ -6,5 +6,5 @@ import java.util.Optional;
 import kata.supermarket.Item;
 
 public interface Discount {
-    public Optional<BigDecimal> calculateDiscount(final Item item);
+    public Optional<BigDecimal> apply(final Item item);
 }

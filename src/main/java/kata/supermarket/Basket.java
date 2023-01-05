@@ -8,9 +8,9 @@ import java.util.List;
 
 public class Basket {
     private final List<Item> items;
-    private final Discounter discounter;
+    private final DiscountSelector discounter;
 
-    public Basket(Discounter discounter) {
+    public Basket(DiscountSelector discounter) {
         this.items = new ArrayList<>();
         this.discounter = discounter;
     }
@@ -29,9 +29,9 @@ public class Basket {
 
     private class TotalCalculator {
         private final List<Item> items;
-        private Discounter discounter;
+        private DiscountSelector discounter;
 
-        TotalCalculator(Discounter discounter) {
+        TotalCalculator(DiscountSelector discounter) {
             this.items = items();
             this.discounter = discounter;
         }

@@ -6,16 +6,16 @@ import java.util.Optional;
 
 import kata.supermarket.discount.Discount;
 
-public class Discounter {
+public class DiscountSelector {
     private List<Discount> discounts;
 
-    public Discounter(List<Discount> discounts) {
+    public DiscountSelector(List<Discount> discounts) {
         this.discounts = discounts;
     }
 
     public Optional<BigDecimal> applyDiscount(Item item) {
         for (Discount discount : discounts) {
-            var discountAmount = discount.calculateDiscount(item);
+            var discountAmount = discount.apply(item);
             if (discountAmount.isPresent()) {
                 return discountAmount;
             }

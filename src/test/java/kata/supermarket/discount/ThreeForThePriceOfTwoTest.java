@@ -18,7 +18,7 @@ class ThreeForThePriceOfTwoTest {
         final var discount = new ThreeForThePriceOfTwo();
         final var item = aPackOfDigestives();
 
-        assertEquals(Optional.empty(), discount.calculateDiscount(item));
+        assertEquals(Optional.empty(), discount.apply(item));
     }
 
     @Test
@@ -26,7 +26,7 @@ class ThreeForThePriceOfTwoTest {
         final var discount = new ThreeForThePriceOfTwo();
         final var items = Stream.of(aPackOfDigestives(), aPackOfDigestives(), aPackOfDigestives());
 
-        final var totalDiscount= items.map(item -> discount.calculateDiscount(item).orElse(BigDecimal.ZERO))
+        final var totalDiscount= items.map(item -> discount.apply(item).orElse(BigDecimal.ZERO))
             .reduce(BigDecimal::add)
             .orElse(BigDecimal.ZERO)
             .setScale(2, RoundingMode.HALF_UP);
@@ -39,7 +39,7 @@ class ThreeForThePriceOfTwoTest {
         final var discount = new ThreeForThePriceOfTwo();
         final var items = Stream.of(aPackOfDigestives(), aPintOfMilk(), aLoafOfBread());
 
-        final var totalDiscount= items.map(item -> discount.calculateDiscount(item).orElse(BigDecimal.ZERO))
+        final var totalDiscount= items.map(item -> discount.apply(item).orElse(BigDecimal.ZERO))
             .reduce(BigDecimal::add)
             .orElse(BigDecimal.ZERO)
             .setScale(2, RoundingMode.HALF_UP);
@@ -55,7 +55,7 @@ class ThreeForThePriceOfTwoTest {
             aPintOfMilk(), aPintOfMilk(), aPintOfMilk()
         );
 
-        final var totalDiscount= items.map(item -> discount.calculateDiscount(item).orElse(BigDecimal.ZERO))
+        final var totalDiscount= items.map(item -> discount.apply(item).orElse(BigDecimal.ZERO))
             .reduce(BigDecimal::add)
             .orElse(BigDecimal.ZERO)
             .setScale(2, RoundingMode.HALF_UP);

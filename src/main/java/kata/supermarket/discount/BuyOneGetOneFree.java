@@ -8,8 +8,9 @@ import kata.supermarket.Item;
 public class BuyOneGetOneFree implements Discount {
     private int itemsSeen = 0;
 
-    public Optional<BigDecimal> calculateDiscount(final Item item) {
+    public Optional<BigDecimal> apply(final Item item) {
         itemsSeen += 1;
+
         if (itemsSeen % 2 == 0) {
             return Optional.of(item.price());
         }

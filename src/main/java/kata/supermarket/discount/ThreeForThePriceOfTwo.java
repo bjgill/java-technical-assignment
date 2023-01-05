@@ -10,7 +10,7 @@ public class ThreeForThePriceOfTwo implements Discount {
     private ArrayList<Item> items = new ArrayList<Item>();
 
     @Override
-    public Optional<BigDecimal> calculateDiscount(Item item) {
+    public Optional<BigDecimal> apply(Item item) {
         items.add(item);
 
         if (items.size() == 3) {

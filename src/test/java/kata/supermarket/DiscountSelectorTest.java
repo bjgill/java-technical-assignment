@@ -11,17 +11,17 @@ import org.junit.jupiter.api.Test;
 import kata.supermarket.discount.BuyOneGetOneFree;
 import kata.supermarket.discount.Discount;
 
-class DiscounterTest {
+class DiscountSelectorTest {
     @Test
     void shouldApplyDiscount() {
-        var discounter = new Discounter(List.of(new ConstantDiscount()));
+        var discounter = new DiscountSelector(List.of(new ConstantDiscount()));
 
         assertEquals(Optional.of(BigDecimal.ONE), discounter.applyDiscount(aPintOfMilk()));
     }
 
     @Test
     void shouldApplyFirstDiscountOnly() {
-        var discounter = new Discounter(List.of(
+        var discounter = new DiscountSelector(List.of(
             new ConstantDiscount(), new BuyOneGetOneFree()
         ));
 
@@ -35,7 +35,7 @@ class DiscounterTest {
 
     private class ConstantDiscount implements Discount {
         @Override
-        public Optional<BigDecimal> calculateDiscount(Item item) {
+        public Optional<BigDecimal> apply(Item item) {
             return Optional.of(BigDecimal.ONE);
         }
 

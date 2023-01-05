@@ -16,7 +16,7 @@ class BuyOneGetOneFreeTest {
         final var bogof = new BuyOneGetOneFree();
         final var item = aPackOfDigestives();
 
-        assertEquals(Optional.empty(), bogof.calculateDiscount(item));
+        assertEquals(Optional.empty(), bogof.apply(item));
     }
 
     @Test
@@ -24,9 +24,9 @@ class BuyOneGetOneFreeTest {
         final var bogof = new BuyOneGetOneFree();
         final var item = aPackOfDigestives();
 
-        bogof.calculateDiscount(item);
+        bogof.apply(item);
 
-        assertEquals(Optional.of(item.price()), bogof.calculateDiscount(item)); 
+        assertEquals(Optional.of(item.price()), bogof.apply(item)); 
     }
 
     private Item aPackOfDigestives() {
