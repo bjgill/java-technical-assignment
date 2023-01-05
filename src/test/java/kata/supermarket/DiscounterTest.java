@@ -9,21 +9,35 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import kata.supermarket.discount.BuyOneGetOneFree;
+import kata.supermarket.discount.Discount;
 
 class DiscounterTest {
     @Test
-    void shouldApplyDiscounts(){
-        var discounter = new Discounter(List.of(new BuyOneGetOneFree()));
+    void shouldApplyDiscount() {
+        var discounter = new Discounter(List.of(new ConstantDiscount()));
 
-        assertEquals(Optional.empty(), discounter.applyDiscount(aPackOfDigestives()));
-        assertEquals(Optional.of(aPintOfMilk().price()), discounter.applyDiscount(aPintOfMilk()));
+        assertEquals(Optional.of(BigDecimal.ONE), discounter.applyDiscount(aPintOfMilk()));
     }
-    
-    private Item aPackOfDigestives() {
-        return new Product(new BigDecimal("1.55")).oneOf();
+
+    @Test
+    void shouldApplyFirstDiscountOnly() {
+        var discounter = new Discounter(List.of(
+            new ConstantDiscount(), new BuyOneGetOneFree()
+        ));
+
+        assertEquals(Optional.of(BigDecimal.ONE), discounter.applyDiscount(aPintOfMilk()));
+        assertEquals(Optional.of(BigDecimal.ONE), discounter.applyDiscount(aPintOfMilk()));
     }
 
     private Item aPintOfMilk() {
         return new Product(new BigDecimal("0.49")).oneOf();
+    }
+
+    private class ConstantDiscount implements Discount {
+        @Override
+        public Optional<BigDecimal> calculateDiscount(Item item) {
+            return Optional.of(BigDecimal.ONE);
+        }
+
     }
 }
