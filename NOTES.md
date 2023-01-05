@@ -11,3 +11,8 @@
     2. a way to select the discounts that apply to an item. We probably need a map of item to discount, but humans probably want to configure discounts the other way round: there are likely to be far more types of items than types of discounts.
 * Also, need to ensure that discounts don't increase the price (e.g. the 2 for £1 discount) - again, something a bit of property testing might be good for.
 * I think the place to start is with the discounter. I will assume a spherical supermarket that only sells unit items and wants discounts for them. I'll implement a couple of diffrent discounts, and then look into the selector.
+
+## v0.1 discounter
+
+* The discounter is going to need to be stateful - items can't hold the state since discounts cross multiple items.
+* Let's assume we can calculate discounts on individual items as they come in. Later, we may want to refactor the basket to group sets of identical items.
