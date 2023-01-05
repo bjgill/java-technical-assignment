@@ -5,8 +5,7 @@ import java.util.Optional;
 
 import kata.supermarket.Item;
 
-// TODO: should be an interface
-public class BuyOneGetOneFree {
+public class BuyOneGetOneFree implements Discount {
     private int itemsSeen = 0;
 
     public Optional<BigDecimal> calculateDiscount(final Item item) {

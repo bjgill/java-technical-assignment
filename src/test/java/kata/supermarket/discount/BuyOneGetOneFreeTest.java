@@ -3,7 +3,6 @@ package kata.supermarket.discount;
 import org.junit.jupiter.api.Test;
 
 import kata.supermarket.Item;
-import kata.supermarket.ItemByUnit;
 import kata.supermarket.Product;
 
 import java.math.BigDecimal;
